@@ -2,6 +2,9 @@ package com.automechtic.modelvue;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
@@ -9,8 +12,11 @@ import javax.microedition.khronos.egl.EGLDisplay;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.FloatMath;
 import android.view.MotionEvent;
 
@@ -30,15 +36,20 @@ import com.threed.jpct.util.BitmapHelper;
 import com.threed.jpct.util.MemoryHelper;
 
 /*
- * Simple OpenGL ES2.0 Wavefront model viewer supports touch rotation and pinch to zoom
- * Stores a history of last 10 models opened in SharePreferences
- * Load multiple models into same scene
+ * - simple OpenGL ES2.0 Wavefront model viewer supports touch rotation and pinch to zoom
+ * - keep a history of last 10 models loaded in SharedPreferences ArrayList
  * 
- * Author: David L		Date: May 2013
+ *  Author: David L		Date: May 2013
  */
 public class MainActivity extends Activity {
 
 	private static MainActivity master = null;
+
+	static final private int history_max = 10;
+	static final private String keystore = "com.automechtic.modelvue";
+	static final private String keyhistory = keystore + ".history";
+	private SharedPreferences prefs = null;
+	private List<String> history = null;
 
 	private GLSurfaceView mGLView;
 	private MyRenderer renderer = null;
@@ -91,6 +102,10 @@ public class MainActivity extends Activity {
 		renderer = new MyRenderer();
 		mGLView.setRenderer(renderer);
 		setContentView(mGLView);
+		
+		prefs = this.getSharedPreferences(keystore, Context.MODE_PRIVATE);
+		history = Arrays.asList(TextUtils.split(prefs.getString(keyhistory, "camaro.obj"), ","));
+
 	}
 
 	@Override
@@ -110,6 +125,16 @@ public class MainActivity extends Activity {
 		super.onStop();
 	}
 
+	private void openListener() {
+		String model = "tank.obj";
+		if (history.size() > history_max - 1) {
+			history.remove(0);
+		}
+		history.add(model);
+		prefs.edit().putString(keyhistory, TextUtils.join(",", history));
+		prefs.edit().commit();
+	}
+	
 	private void copy(Object src) {
 		try {
 			Logger.log("Copying data from master Activity!");
