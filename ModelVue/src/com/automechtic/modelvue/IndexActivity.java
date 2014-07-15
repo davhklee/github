@@ -32,9 +32,8 @@ public class IndexActivity extends Activity {
     private void doOpen() {
     	Intent intent = new Intent(this, FileChooser.class);
     	ArrayList<String> ext = new ArrayList<String>();
-    	ext.add(".pdf");
-    	ext.add(".xls");
-    	ext.add(".xlsx");
+    	ext.add(".obj");
+    	ext.add(".mtl");
     	intent.putStringArrayListExtra("ext", ext);
     	startActivityForResult(intent, FILE_CHOOSER);
 
