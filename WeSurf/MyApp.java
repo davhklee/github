@@ -1,4 +1,3 @@
-
 package mypackage;
 
 import net.rim.blackberry.api.bbm.platform.BBMPlatformApplication;
@@ -241,3 +240,4 @@ public class MyApp extends UiApplication implements Runnable, BBMBridgeCallback
     
     
 }
+

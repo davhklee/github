@@ -1,4 +1,3 @@
-
 package com.automechtic.modelvue;
 
 import java.io.InputStream;
@@ -299,3 +298,4 @@ public class MainActivity extends Activity {
 		}
 	}
 }
+
