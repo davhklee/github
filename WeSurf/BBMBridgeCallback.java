@@ -1,3 +1,4 @@
+
 /*
  * BBMBridgeCallback.java
  *
@@ -35,3 +36,4 @@ public interface BBMBridgeCallback {
     public void exitApp();
 
 }
+

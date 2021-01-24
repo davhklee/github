@@ -1,3 +1,4 @@
+
 /*
  * MessageField.java
  *
@@ -105,3 +106,4 @@ public final class MessageField extends TextField {
     };
 
 }
+

@@ -1,1 +1,0 @@
-modify MyApp and MyScreen to suit your needs

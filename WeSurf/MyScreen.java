@@ -1,3 +1,4 @@
+
 package mypackage;
 
 import org.w3c.dom.Document;
@@ -351,3 +352,4 @@ public final class MyScreen extends MainScreen implements FocusChangeListener
     }
 
 }
+
